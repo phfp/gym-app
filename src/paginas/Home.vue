@@ -18,9 +18,7 @@
         <h1 class="display-2 font-weight-bold mb-3">
          Bem Vindo ao MyGym
         </h1>
-        <p class="subheading font-weight-regular">
-          Em Desemvolvimento
-        </p>
+        <span>Site em Desemvolvimento</span>
       </v-flex>
     </v-layout>
   </v-container>
