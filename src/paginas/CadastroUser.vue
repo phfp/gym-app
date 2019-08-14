@@ -1,6 +1,7 @@
 <template>
   <base-app>
     <form @submit.prevent="submit">
+      
       <v-text-field
         v-model="name"
         v-validate="'required'"
@@ -9,6 +10,7 @@
         data-vv-name="name"
         required
       ></v-text-field>
+
       <v-text-field
         v-model="email"
         v-validate="'required|email'"
@@ -17,6 +19,7 @@
         data-vv-name="email"
         required
       ></v-text-field>
+
       <v-text-field
         type="password"
         v-model="password"
@@ -26,6 +29,7 @@
         data-vv-name="password"
         required
       ></v-text-field>
+      
       <v-text-field
         type="password"
         v-model="password_confirmation"

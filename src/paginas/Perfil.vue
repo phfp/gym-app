@@ -18,7 +18,6 @@
               flat
             >
               <v-flex text-center xs12 sm12>              
-                <input ref="upImagem"  type="file" v-show="true" @change="salvaImagem">
                  <div class="upimg">                
                   <v-btn text icon @click="$refs.upImagem.click()" class="upbtn">
                     <v-avatar size="160">              
@@ -31,11 +30,24 @@
                       <v-icon @click="$refs.upImagem.click()" class="upicon">mdi-image-search</v-icon>
                     </v-flex>
                   </v-layout>
+                  <input id="inputImg" ref="upImagem"  type="file" v-show="false" @change="salvaImagem">
                 </div>
+                <span class="imgSpan title">{{usuario.name}}</span> <br>
+                <span class="imgSpan subtitle-2">{{usuario.email}}</span>
+                
               </v-flex>
             </v-card>
           </v-flex>
-          
+
+          <v-flex v-if="img_file" xs12 sm12>
+            <v-text-field
+              prepend-icon="image"
+              disabled
+              v-model="img_file"
+              label="Imagem"
+            ></v-text-field>
+          </v-flex>
+
           <v-flex xs12 sm6>
             <v-text-field
               v-model="name"
@@ -52,6 +64,7 @@
 
           <v-flex xs12 sm6>
             <v-text-field
+              type="password"
               v-model="password"
               label="Senha"
             ></v-text-field>
@@ -59,6 +72,7 @@
 
           <v-flex xs12 sm6>
             <v-text-field
+              type="password"
               v-model="password_confirmation"
               label="Confirme sua senha"
             ></v-text-field>
@@ -84,6 +98,7 @@ export default {
   name: 'CadastroUser',
   data () {
     return {
+        img_file: '',
         usuario:'',
         name:'',
         email:'',
@@ -107,6 +122,10 @@ export default {
       if(!arquivo.length){
         return;
       }
+      
+      var fileInput = document.getElementById("inputImg");
+      var files = fileInput.files;      
+      this.img_file = files[0].name;
 
       let reader = new FileReader();
 
@@ -128,7 +147,7 @@ export default {
         if(response.data.token){
           this.usuario = response.data;
           this.$session.set('usuario', response.data);
-          alert("Sucesso");
+          this.img_file = '';
         }else{
           let erros = '';
           for(let erro of Object.values(response.data)){
@@ -151,7 +170,7 @@ export default {
 
 .upimg .upbtn{
   opacity: 0.9;
-  transition: .5s ease;  
+  transition: .3s ease;  
 }
 .upimg:hover .upbtn{
   opacity: 0.1;
@@ -171,4 +190,11 @@ export default {
   left: 2px;
   top: 48px;
 }
+
+.imgSpan{
+  position: relative;
+  top: 50px;
+  color: #212121;
+}
+
 </style>

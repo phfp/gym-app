@@ -6,6 +6,7 @@
       clipped
     >
       <v-list dense>
+
         <v-list-item @click="goToRouter('')">
           <v-list-item-action>
             <v-icon>dashboard</v-icon>
@@ -14,6 +15,7 @@
             <v-list-item-title>Dashboard</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+
         <v-list-item v-if="usuario.tipo_usuario_id==1 || usuario.tipo_usuario_id==2" @click="goToRouter('cadastrouser')">
           <v-list-item-action>
             <v-icon>settings</v-icon>
@@ -22,12 +24,32 @@
             <v-list-item-title>Cadastro de Usuários</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+
+        <v-list-item v-if="usuario.tipo_usuario_id==3 || usuario.tipo_usuario_id==2" @click="goToRouter('')">
+          <v-list-item-action>
+            <v-icon>mdi-medal</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Meu Treino</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item v-if="usuario.tipo_usuario_id==3 || usuario.tipo_usuario_id==2" @click="goToRouter('')">
+          <v-list-item-action>
+            <v-icon>mdi-trophy-variant</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Exercícios</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
       </v-list>
     </v-navigation-drawer>
 
     <v-app-bar
       app
       clipped-left
+      color="white"
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-icon class="mx-4">fa-dumbbell</v-icon>
@@ -134,7 +156,7 @@
       usuario: ''
     }),
     created () {
-      this.$vuetify.theme.dark = true,
+      this.$vuetify.theme.dark = false,
       this.usuario = this.$session.get('usuario')
     },
     beforeCreate(){
