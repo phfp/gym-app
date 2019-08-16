@@ -18,10 +18,28 @@
 
         <v-list-item v-if="usuario.tipo_usuario_id==1 || usuario.tipo_usuario_id==2" @click="goToRouter('cadastrouser')">
           <v-list-item-action>
-            <v-icon>settings</v-icon>
+            <v-icon>mdi-account-plus</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>Cadastro de Usuários</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item v-if="usuario.tipo_usuario_id==1 || usuario.tipo_usuario_id==2" @click="goToRouter('cadastroexercicio')">
+          <v-list-item-action>
+            <v-icon>mdi-human</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Cadastro de Exercícios</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item v-if="usuario.tipo_usuario_id==3 || usuario.tipo_usuario_id==2" @click="goToRouter('')">
+          <v-list-item-action>
+            <v-icon>mdi-human-male-height</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Minha Avaliação Física</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
 
@@ -34,7 +52,7 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-item v-if="usuario.tipo_usuario_id==3 || usuario.tipo_usuario_id==2" @click="goToRouter('')">
+        <v-list-item v-if="usuario.tipo_usuario_id==3 || usuario.tipo_usuario_id==2" @click="goToRouter('exercicios')">
           <v-list-item-action>
             <v-icon>mdi-trophy-variant</v-icon>
           </v-list-item-action>

@@ -4,6 +4,8 @@ import Home from '@/paginas/Home'
 import Login from '@/paginas/Login'
 import CadastroUser from '@/paginas/CadastroUser'
 import Perfil from '@/paginas/Perfil'
+import Exercicios from '@/paginas/exercicios/Exercicios'
+import CadastroExercicio from '@/paginas/exercicios/CadastroExercicio'
 
 Vue.use(Router)
 
@@ -29,5 +31,15 @@ export default new Router({
       name: 'Perfil',
       component: Perfil
     },
+    {
+      path: '/exercicios',
+      name: 'Exercicios',
+      component: Exercicios
+    },
+    {
+      path: '/cadastroexercicio',
+      name: 'CadastroExercicio',
+      component: CadastroExercicio
+    }
   ]
 })
