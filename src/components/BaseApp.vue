@@ -25,7 +25,7 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-item v-if="usuario.tipo_usuario_id==1 || usuario.tipo_usuario_id==2" @click="goToRouter('cadastroexercicio')">
+        <v-list-item v-if="usuario.tipo_usuario_id==1" @click="goToRouter('cadastroexercicio')">
           <v-list-item-action>
             <v-icon>mdi-human</v-icon>
           </v-list-item-action>
@@ -34,7 +34,7 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-item v-if="usuario.tipo_usuario_id==3 || usuario.tipo_usuario_id==2" @click="goToRouter('')">
+        <v-list-item v-if="usuario.tipo_usuario_id==3"@click="goToRouter('')">
           <v-list-item-action>
             <v-icon>mdi-human-male-height</v-icon>
           </v-list-item-action>
@@ -43,7 +43,7 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-item v-if="usuario.tipo_usuario_id==3 || usuario.tipo_usuario_id==2" @click="goToRouter('')">
+        <v-list-item v-if="usuario.tipo_usuario_id==3" @click="goToRouter('')">
           <v-list-item-action>
             <v-icon>mdi-medal</v-icon>
           </v-list-item-action>
@@ -52,7 +52,7 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-item v-if="usuario.tipo_usuario_id==3 || usuario.tipo_usuario_id==2" @click="goToRouter('exercicios')">
+        <v-list-item @click="goToRouter('exercicios')">
           <v-list-item-action>
             <v-icon>mdi-trophy-variant</v-icon>
           </v-list-item-action>

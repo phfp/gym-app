@@ -1,28 +1,39 @@
 <template>
   <base-app>
     <form @submit.prevent="submit">
-      <v-file-input
-        :rules="rules"
-        accept="image/png, image/jpeg, image/bmp"
-        placeholder="Imagem"
-        prepend-icon="mdi-camera"
-        label="Imagem"
-      ></v-file-input>
+
+      <input id="inputImg" ref="upImagem"  type="file" v-show="false" @change="salvaImagem">
+      <v-flex xs12 sm12>
+        <v-text-field
+          @click="$refs.upImagem.click()"
+          prepend-icon="image"
+          v-model="img_file"
+          label="Imagem"
+          :error-messages="errors.collect('img_file')"
+          data-vv-name="imagem"
+          required
+        ></v-text-field>
+      </v-flex>
 
       <v-text-field
+        v-model="descricao"
         v-validate="'required'"
-        :error-messages="errors.collect('name')"
+        :error-messages="errors.collect('descricao')"
         label="Descrição"
-        data-vv-name="name"
+        data-vv-name="descricao"
         required
       ></v-text-field>
 
       <v-select
-        :items="grupo_exercicios[0].id"
+        dense
+        :items="grupo_exercicios"
         label="Grupo"
+        v-model="grupo_exercicio_id"
+        item-value="id"
+        item-text="descricao"
       ></v-select>
 
-      <v-btn type="submit" class="mr-4">Enviar</v-btn>
+      <v-btn @click="cadastroEx" type="submit" class="mr-4">Enviar</v-btn>
       <v-btn @click="clear">Limpar</v-btn>
     </form>
   </base-app>
@@ -34,7 +45,7 @@
   import BaseApp from "@/components/BaseApp"
 
   export default {
-    name: 'CadastroUsuario',
+    name: 'CadastroExercicio',
     $_veeValidate: {
       validator: 'new',
     },
@@ -45,6 +56,10 @@
       rules: [
         value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
       ],
+      img_file: '',
+      imagem: '',
+      descricao: '',
+      grupo_exercicio_id: '',
       drawer: null,
       grupo_exercicios: '', 
       dictionary: {
@@ -89,39 +104,51 @@
     },
 
     methods:{
+      salvaImagem: function(e){
+        let arquivo = e.target.files || e.dataTransfer.files;
+        if(!arquivo.length){
+          return;
+        }
+        
+        var fileInput = document.getElementById("inputImg");
+        var files = fileInput.files;      
+        this.img_file = files[0].name;
+
+        let reader = new FileReader();
+
+        reader.onloadend = (e) => {
+          this.imagem = e.target.result;
+        };
+
+        reader.readAsDataURL(arquivo[0]);
+      },
       submit () {
         this.$validator.validateAll();
         
         if (!this.errors.any()) {
-          this.cadastro();
+          this.cadastroEx();
         }
       },
       clear () {
-        this.name = ''
-        this.email = ''
-        this.select = null
-        this.checkbox = null
-        this.password = ''
-        this.password_confirmation = ''
+        this.img_file = ''
+        this.imagem = ''
+        this.descricao = ''
+        this.grupo_exercicio_id = null
         this.$validator.reset()
       },   
-      cadastro: function(){
-        axios.post('http://127.0.0.1:8000/api/cadastro',{
-          name: this.name,
-          email: this.email,
-          password: this.password,
-          password_confirmation: this.password_confirmation,
-          tipo_usuario_id: this.tipo_usuario_id
+      cadastroEx: function(){
+        axios.post('http://127.0.0.1:8000/api/cadastroexercicios',{
+          imagem: this.imagem,
+          descricao: this.descricao,
+          grupo_exercicio_id: this.grupo_exercicio_id,
         })
         .then(response => {
-          if(response.data.token){
+          if(response.data.img){
             alert('Cadastro realizado com sucesso');
             this.clear();
-          }else if(response.data.status == false){
-            //login nao existe
+          }else if(response.data.img == false){
             alert('Erro no cadastro!');
           }else{
-            //erro de validacao
             let erros = '';
             for(let erro of Object.values(response.data)){
               erros += erro +" ";

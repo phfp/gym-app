@@ -1,6 +1,5 @@
 <template>
-  <base-app>
-  
+  <base-app>  
   <v-row>
     <v-col cols="12" sm="12">
       <v-card>
@@ -10,13 +9,11 @@
               v-for="exercicio in exercicios"
               v-bind:key="exercicio.id"
               class="d-flex child-flex"
-              cols="4"
+              sm="4"
             >
-              <v-card class="d-flex">
+              <v-card>
                 <v-img
-                  height="200"
-                  src="http://127.0.0.1:8000/exercicios/exercicio.jpg"
-                  lazy-src="http://127.0.0.1:8000/exercicios/exercicio.jpg"
+                  :src="exercicio.imagem"
                   aspect-ratio="1"
                   class="teal lighten-3"
                 >
@@ -28,8 +25,14 @@
                     >
                       <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
                     </v-row>
-                  </template>
-                </v-img>              
+                  </template>                                   
+                </v-img>
+
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-card-text class="align-end fill-height">{{exercicio.descricao}}</v-card-text>
+                </v-card-actions>  
+
               </v-card>
             </v-col>
           </v-row>
@@ -52,7 +55,7 @@ export default {
       exercicios: ''
     }
   },
-  created() {
+  beforeCreate() {
     axios.get('http://127.0.0.1:8000/api/exercicios/')
     .then(function (response) {     
       sessionStorage.setItem('exercicios',JSON.stringify(response.data));
@@ -65,12 +68,17 @@ export default {
     .finally(function () {
       // always executed
     });
-
+    
+    
+  },
+  created(){
     let exercicios = sessionStorage.getItem('exercicios');
     if(exercicios){
       this.exercicios = JSON.parse(exercicios)
     }
-
+    //this.$router.push("exercicios")
+  },
+  mounted(){
   },
   methods:{
   },
