@@ -2,11 +2,25 @@
   <base-app>  
   <v-row>
     <v-col cols="12" sm="12">
+      <v-flex text-center xs12 sm12> 
+        <v-select
+          cols="6"
+          dense
+          :items="grupos"
+          label="Grupo"
+          v-model="show_grupo"
+          item-value="id"
+          item-text="descricao"
+          prepend-icon="mdi-filter"
+          clearable
+          clear-icon="mdi-filter-remove"
+        ></v-select>
+      </v-flex>
       <v-card>
         <v-container fluid>
           <v-row>
             <v-col
-              v-for="exercicio in exercicios"
+              v-for="exercicio in show_exercicios"
               v-bind:key="exercicio.id"
               class="d-flex child-flex"
               sm="4"
@@ -52,7 +66,34 @@ export default {
   name: 'Exercicios',
   data () {
     return {
-      exercicios: ''
+      exercicios: '',
+      show_grupo: null,
+      grupos:[
+        {
+          'id':'0',
+          'descricao':'Costas'
+        },
+        {
+          'id':'2',
+          'descricao':'Peito'
+        },
+        {
+          'id':'3',
+          'descricao':'Pernas'
+        },
+        {
+          'id':'5',
+          'descricao':'Triceps'
+        },
+        {
+          'id':'6',
+          'descricao':'Ombro'
+        },
+        {
+          'id':'6',
+          'descricao':'Bíceps'
+        }
+      ]
     }
   },
   beforeCreate() {
@@ -76,9 +117,27 @@ export default {
     if(exercicios){
       this.exercicios = JSON.parse(exercicios)
     }
+
+    console.log(this.show_exercicios);
     //this.$router.push("exercicios")
   },
-  mounted(){
+  computed:{
+    show_exercicios: function(){
+      var show = [];
+      var i;
+
+      if(this.show_grupo == null){
+        show = this.exercicios;
+      }else{
+        for(i in this.exercicios){
+          if(this.exercicios[i].grupo_exercicio_id==this.show_grupo){
+            console.log(this.exercicios[i]);
+            show.push(this.exercicios[i]);
+          }
+        }
+      }
+      return show;
+    }
   },
   methods:{
   },

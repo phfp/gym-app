@@ -7,83 +7,85 @@
       class="mx-auto"
     >
       <v-form>
-      <v-container grid-list-xl fluid>
-        <v-layout align-space-around  wrap>
+        <v-container grid-list-xl fluid>
+          <v-layout align-space-around  wrap>
 
-          <v-flex text-center xs12 sm12>
-            <v-card
-              color="transparent"
-              height="260"
-              class="mx-auto"
-              flat
-            >
-              <v-flex text-center xs12 sm12>              
-                 <div class="upimg">                
-                  <v-btn text icon @click="$refs.upImagem.click()" class="upbtn">
-                    <v-avatar size="160">              
-                      <v-img :src=usuario.imagem alt="avatar"/>                   
-                    </v-avatar>                  
-                  </v-btn>
-                  <v-layout pa-2 column fill-height class="lightbox white--text">
-                    <v-spacer></v-spacer>
-                    <v-flex shrink>
-                      <v-icon @click="$refs.upImagem.click()" class="upicon">mdi-image-search</v-icon>
-                    </v-flex>
-                  </v-layout>
-                  <input id="inputImg" ref="upImagem"  type="file" v-show="false" @change="salvaImagem">
-                </div>
-                <span class="imgSpan title">{{usuario.name}}</span> <br>
-                <span class="imgSpan subtitle-2">{{usuario.email}}</span>
-                
-              </v-flex>
-            </v-card>
-          </v-flex>
+            <v-flex text-center xs12 sm12>
+              <v-card
+                color="transparent"
+                height="260"
+                class="mx-auto"
+                flat
+              >
+                <v-flex text-center xs12 sm12>              
+                    <div class="upimg">                
+                    <v-btn text icon @click="$refs.upImagem.click()" class="upbtn">
+                      <v-avatar size="160">              
+                        <v-img :src=usuario.imagem alt="avatar"/>                   
+                      </v-avatar>                  
+                    </v-btn>
+                    <v-layout pa-2 column fill-height class="lightbox white--text">
+                      <v-spacer></v-spacer>
+                      <v-flex shrink>
+                        <v-icon @click="$refs.upImagem.click()" class="upicon">mdi-image-search</v-icon>
+                      </v-flex>
+                    </v-layout>
+                    <input id="inputImg" ref="upImagem"  type="file" v-show="false" @change="salvaImagem">
+                  </div>
+                  <span class="imgSpan title">{{usuario.name}}</span> <br>
+                  <span class="imgSpan subtitle-2">{{usuario.email}}</span>
+                  
+                </v-flex>
+              </v-card>
+            </v-flex>
 
-          <v-flex v-if="img_file" xs12 sm12>
-            <v-text-field
-              prepend-icon="image"
-              disabled
-              v-model="img_file"
-              label="Imagem"
-            ></v-text-field>
-          </v-flex>
+            <v-flex v-if="img_file" xs12 sm12>
+              <v-text-field
+                prepend-icon="image"
+                disabled
+                v-model="img_file"
+                label="Imagem"
+              ></v-text-field>
+            </v-flex>
 
-          <v-flex xs12 sm6>
-            <v-text-field
-              v-model="name"
-              label="Nome"
-            ></v-text-field>
-          </v-flex>
+            <v-flex xs12 sm6>
+              <v-text-field
+                v-model="name"
+                label="Nome"
+              ></v-text-field>
+            </v-flex>
 
-          <v-flex xs12 sm6>
-            <v-text-field
-              v-model="email"
-              label="Email"
-            ></v-text-field>
-          </v-flex>
+            <v-flex xs12 sm6>
+              <v-text-field
+                v-model="email"
+                label="Email"
+              ></v-text-field>
+            </v-flex>
 
-          <v-flex xs12 sm6>
-            <v-text-field
-              type="password"
-              v-model="password"
-              label="Senha"
-            ></v-text-field>
-          </v-flex>        
+            <v-flex xs12 sm6>
+              <v-text-field
+                type="password"
+                v-model="password"
+                label="Senha"
+              ></v-text-field>
+            </v-flex>        
 
-          <v-flex xs12 sm6>
-            <v-text-field
-              type="password"
-              v-model="password_confirmation"
-              label="Confirme sua senha"
-            ></v-text-field>
-          </v-flex>
-        </v-layout>
-      </v-container>      
-    </v-form>
+            <v-flex xs12 sm6>
+              <v-text-field
+                type="password"
+                v-model="password_confirmation"
+                label="Confirme sua senha"
+              ></v-text-field>
+            </v-flex>
+          </v-layout>
+        </v-container>      
+      </v-form>
 
-    <v-card-actions>
-      <v-btn @click="perfil" class="success" text>Atualizar</v-btn>
+      <v-card-actions>      
+        <v-btn @click="perfil" class="mr-4">Atualizar</v-btn>
+        <v-btn @click="clear">Limpar</v-btn>
       </v-card-actions>
+
     </v-card>
 
   </base-app>
@@ -117,6 +119,14 @@ export default {
     }
   },
   methods:{
+    clear(){
+      this.name = '',
+      this.email = '',
+      this.password = '',
+      this.password_confirmation = ''
+      this.img_file =  '',
+      this.imagem = ''
+    },
     salvaImagem: function(e){
       let arquivo = e.target.files || e.dataTransfer.files;
       if(!arquivo.length){

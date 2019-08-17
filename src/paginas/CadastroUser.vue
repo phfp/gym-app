@@ -56,7 +56,7 @@
         required
       ></v-checkbox>
 
-      <v-btn type="submit" class="mr-4">Enviar</v-btn>
+      <v-btn type="submit" class="mr-4">Cadastrar</v-btn>
       <v-btn @click="clear">Limpar</v-btn>
     </form>
   </base-app>

@@ -34,7 +34,7 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-item v-if="usuario.tipo_usuario_id==3"@click="goToRouter('')">
+        <v-list-item v-if="usuario.tipo_usuario_id==3" @click="goToRouter('')">
           <v-list-item-action>
             <v-icon>mdi-human-male-height</v-icon>
           </v-list-item-action>
@@ -67,7 +67,6 @@
     <v-app-bar
       app
       clipped-left
-      color="white"
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-icon class="mx-4">fa-dumbbell</v-icon>
