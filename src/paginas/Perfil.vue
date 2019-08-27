@@ -83,7 +83,7 @@
 
       <v-card-actions>      
         <v-btn @click="perfil" class="mr-4">Atualizar</v-btn>
-        <v-btn @click="clear">Limpar</v-btn>
+        <v-btn @click="clear">Restaurar</v-btn>
       </v-card-actions>
 
     </v-card>
@@ -94,7 +94,6 @@
 <script>
 
 import BaseApp from '@/components/BaseApp'
-import axios from 'axios'
 
 export default {
   name: 'CadastroUser',
@@ -120,8 +119,8 @@ export default {
   },
   methods:{
     clear(){
-      this.name = '',
-      this.email = '',
+      this.name = this.usuario.name,
+      this.email = this.usuario.email,
       this.password = '',
       this.password_confirmation = ''
       this.img_file =  '',
@@ -146,7 +145,7 @@ export default {
       reader.readAsDataURL(arquivo[0]);
     },
     perfil: function(){
-      axios.put('http://127.0.0.1:8000/api/perfil',{
+      this.$http.put(this.$urlApi+'/api/perfil',{
         name: this.name,
         email: this.email,
         imagem: this.imagem,

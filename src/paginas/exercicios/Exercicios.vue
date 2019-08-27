@@ -2,12 +2,11 @@
   <base-app>  
   <v-row>
     <v-col cols="12" sm="12">
-      <v-flex text-center xs12 sm12> 
+      <v-flex text-center xs12 sm3> 
         <v-select
-          cols="6"
           dense
           :items="grupos"
-          label="Grupo"
+          label="Grupos Musculares"
           v-model="show_grupo"
           item-value="id"
           item-text="descricao"
@@ -16,6 +15,7 @@
           clear-icon="mdi-filter-remove"
         ></v-select>
       </v-flex>
+      <br>
       <v-card>
         <v-container fluid>
           <v-row>
@@ -23,7 +23,7 @@
               v-for="exercicio in show_exercicios"
               v-bind:key="exercicio.id"
               class="d-flex child-flex"
-              sm="4"
+              sm="3"
             >
               <v-card>
                 <v-img
@@ -43,8 +43,15 @@
                 </v-img>
 
                 <v-card-actions>
+
                   <v-spacer></v-spacer>
-                  <v-card-text class="align-end fill-height">{{exercicio.descricao}}</v-card-text>
+
+                  <span> {{exercicio.descricao}}</span>
+
+                  <v-btn :to="'/exercicios/exercicio/'+exercicio.id" class="mx-2" text icon color="orange">
+                    <v-icon dark>add</v-icon>
+                  </v-btn>
+
                 </v-card-actions>  
 
               </v-card>
@@ -60,7 +67,6 @@
 <script>
 
 import BaseApp from '@/components/BaseApp'
-import axios from 'axios'
 
 export default {
   name: 'Exercicios',
@@ -70,56 +76,41 @@ export default {
       show_grupo: null,
       grupos:[
         {
-          'id':'0',
-          'descricao':'Costas'
+          'id':'1',
+          'descricao':'Bíceps'
         },
         {
           'id':'2',
-          'descricao':'Peito'
+          'descricao':'Costas'
         },
         {
           'id':'3',
+          'descricao':'Peito'
+        },
+        {
+          'id':'4',
           'descricao':'Pernas'
         },
         {
           'id':'5',
-          'descricao':'Triceps'
+          'descricao':'Tríceps'
         },
         {
           'id':'6',
           'descricao':'Ombro'
         },
         {
-          'id':'6',
-          'descricao':'Bíceps'
+          'id':'7',
+          'descricao':'Abdominais'
         }
       ]
     }
   },
   beforeCreate() {
-    axios.get('http://127.0.0.1:8000/api/exercicios/')
-    .then(function (response) {     
-      sessionStorage.setItem('exercicios',JSON.stringify(response.data));
-      console.log(response);
-    })
-    .catch(function (error) {
-      // handle error
-      console.log(error);
-    })
-    .finally(function () {
-      // always executed
-    });
-    
-    
+
   },
   created(){
-    let exercicios = sessionStorage.getItem('exercicios');
-    if(exercicios){
-      this.exercicios = JSON.parse(exercicios)
-    }
-
-    console.log(this.show_exercicios);
-    //this.$router.push("exercicios")
+    this.exercicios = this.$store.getters.getExercicios;    
   },
   computed:{
     show_exercicios: function(){

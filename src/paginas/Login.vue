@@ -63,8 +63,6 @@
 
 <script>
 
-  import axios from 'axios'
-
   export default {
     name: 'Login',
     props: {
@@ -76,37 +74,49 @@
       password:'',
     }),
     beforeCreate(){
-    if(this.$session.exists()){
-      this.$router.push('/');
-    }
-  },
-  methods:{
-    login: function(){
-      axios.post('http://127.0.0.1:8000/api/login',{
-        email: this.email,
-        password: this.password                
-      })
-      .then(response => {
-        if(response.status === 200 && 'token' in response.data){
-          this.$session.start();
-          this.$session.set('usuario', response.data);
-          //axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.token;
-          this.$router.push('/');
-        }else if(response.data.status == false){
-          alert('Login inválido!');
-        }else{
-          //erro de validacao
-          let erros = '';
-          for(let erro of Object.values(response.data)){
-            erros += erro +" ";
-          }
-          alert(erros);
-        }
-      })    
-      .catch(e => {
-        alert("Tente novamente mais tarde!");
-      })  
+      if(this.$session.exists()){
+        this.$router.push('/');
+      }
     },
-  },
-}
+    methods:{
+      login: function(){
+        this.$http.post(this.$urlApi+'/api/login',{
+          email: this.email,
+          password: this.password                
+        })
+        .then(response => {
+          if(response.status === 200 && 'token' in response.data){
+            this.$session.start();
+            this.$session.set('usuario', response.data);
+            //axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.token;
+            
+            this.$http.get(this.$urlApi+'/api/exercicios/')
+            .then(function (response) {     
+              sessionStorage.setItem('exercicios',JSON.stringify(response.data));
+            })
+            .catch(function (error) {
+              // handle error
+            })
+            .finally(function () {
+              // always executed
+            }); 
+
+            this.$router.push('/');
+          }else if(response.data.status == false){
+            alert('Login inválido!');
+          }else{
+            //erro de validacao
+            let erros = '';
+            for(let erro of Object.values(response.data)){
+              erros += erro +" ";
+            }
+            alert(erros);
+          }
+        })    
+        .catch(e => {
+          alert("Tente novamente mais tarde!");
+        })  
+      },
+    },
+  }
 </script>

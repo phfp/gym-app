@@ -147,7 +147,7 @@
           align-center
           justify-center
         >
-          <v-flex xs8 offset-xs1>
+          <v-flex xs12 offset-xs0>
             <slot>
             </slot>
           </v-flex>
@@ -162,7 +162,6 @@
 </template>
 
 <script>
-
   export default {
     props: {
       source: String,
@@ -173,18 +172,18 @@
       usuario: ''
     }),
     created () {
-      this.$vuetify.theme.dark = false,
-      this.usuario = this.$session.get('usuario')
+      this.$vuetify.theme.dark = false;
+      this.usuario = this.usuario = this.$session.get('usuario');
     },
     beforeCreate(){
     if(!this.$session.exists()){
-      this.$router.push('/login')
+      this.$router.push('/login');
     }
     },
     methods:{
       sair(){
-        this.$session.destroy()
-        this.$router.push('/login')
+        this.$session.destroy();
+        this.$router.push('/login');
       },
       goToRouter(myrouter){
         var str = '/'+myrouter;

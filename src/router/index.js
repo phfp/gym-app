@@ -6,6 +6,7 @@ import CadastroUser from '@/paginas/CadastroUser'
 import Perfil from '@/paginas/Perfil'
 import Exercicios from '@/paginas/exercicios/Exercicios'
 import CadastroExercicio from '@/paginas/exercicios/CadastroExercicio'
+import Exercicio from '@/paginas/exercicios/Exercicio'
 
 Vue.use(Router)
 
@@ -40,6 +41,11 @@ export default new Router({
       path: '/cadastroexercicio',
       name: 'CadastroExercicio',
       component: CadastroExercicio
+    },
+    {
+      path: '/exercicios/exercicio/:id',
+      name: 'Exercicio',
+      component: Exercicio
     }
   ]
 })

@@ -1,47 +1,48 @@
 <template>
   <base-app>
-    <form @submit.prevent="submit">
+    <v-flex xs8 offset-xs2>
+      <form @submit.prevent="submit">
 
-      <input id="inputImg" ref="upImagem"  type="file" v-show="false" @change="salvaImagem">
-      <v-flex xs12 sm12>
+        <input id="inputImg" ref="upImagem"  type="file" v-show="false" @change="salvaImagem">
+        <v-flex xs12 sm12>
+          <v-text-field
+            @click="$refs.upImagem.click()"
+            prepend-icon="image"
+            v-model="img_file"
+            label="Imagem"
+            :error-messages="errors.collect('img_file')"
+            data-vv-name="imagem"
+            required
+          ></v-text-field>
+        </v-flex>
+
         <v-text-field
-          @click="$refs.upImagem.click()"
-          prepend-icon="image"
-          v-model="img_file"
-          label="Imagem"
-          :error-messages="errors.collect('img_file')"
-          data-vv-name="imagem"
+          v-model="descricao"
+          v-validate="'required'"
+          :error-messages="errors.collect('descricao')"
+          label="Descrição"
+          data-vv-name="descricao"
           required
         ></v-text-field>
-      </v-flex>
 
-      <v-text-field
-        v-model="descricao"
-        v-validate="'required'"
-        :error-messages="errors.collect('descricao')"
-        label="Descrição"
-        data-vv-name="descricao"
-        required
-      ></v-text-field>
+        <v-select
+          dense
+          :items="grupo_exercicios"
+          label="Grupo"
+          v-model="grupo_exercicio_id"
+          item-value="id"
+          item-text="descricao"
+        ></v-select>
 
-      <v-select
-        dense
-        :items="grupo_exercicios"
-        label="Grupo"
-        v-model="grupo_exercicio_id"
-        item-value="id"
-        item-text="descricao"
-      ></v-select>
-
-      <v-btn @click="cadastroEx" type="submit" class="mr-4">Cadastrar</v-btn>
-      <v-btn @click="clear">Limpar</v-btn>
-    </form>
+        <v-btn @click="cadastroEx" type="submit" class="mr-4">Cadastrar</v-btn>
+        <v-btn @click="clear">Limpar</v-btn>
+      </form>
+    </v-flex>
   </base-app>
 </template>
 
 <script>
 
-  import axios from 'axios'
   import BaseApp from "@/components/BaseApp"
 
   export default {
@@ -81,7 +82,7 @@
       },
     }),
     created () {
-      axios.get('http://127.0.0.1:8000/api/grupoexercicios/')
+      this.$http.get(this.$urlApi+'/api/grupoexercicios/')
     .then(function (response) {     
       sessionStorage.setItem('grupoExercicios',JSON.stringify(response.data));
       console.log(response);
@@ -137,7 +138,7 @@
         this.$validator.reset()
       },   
       cadastroEx: function(){
-        axios.post('http://127.0.0.1:8000/api/cadastroexercicios',{
+        this.$http.post(this.$urlApi+'/api/cadastroexercicios',{
           imagem: this.imagem,
           descricao: this.descricao,
           grupo_exercicio_id: this.grupo_exercicio_id,
