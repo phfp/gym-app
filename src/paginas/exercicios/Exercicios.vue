@@ -122,7 +122,6 @@ export default {
       }else{
         for(i in this.exercicios){
           if(this.exercicios[i].grupo_exercicio_id==this.show_grupo){
-            console.log(this.exercicios[i]);
             show.push(this.exercicios[i]);
           }
         }
