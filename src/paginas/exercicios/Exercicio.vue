@@ -1,22 +1,22 @@
 <template>
   <base-app>
-    <v-card
-      class="mx-auto"
-      max-width="400"
-    >
-      <v-img
-        class="white--text"
-        height="400px"
-        :src="exercicio.imagem"
-      >
-        <v-card-title class="align-end fill-height">{{exercicio.descricao}}</v-card-title>
-      </v-img>
+    <v-row >
+      <v-col cols="4">
+        <v-card
+          class="mx-auto"
+          max-width="400"
+        >
+          <v-img
+            class="white--text"
+            :src="exercicio.imagem"
+          >
+          </v-img>
 
-      <v-card-text>
-        <span> Detalhes do Exercicio... </span><br>
-      </v-card-text>
-    </v-card>
+          <v-card-title> {{exercicio.descricao}} </v-card-title>
 
+        </v-card>
+        </v-col>
+    </v-row>
   </base-app>
 </template>
 

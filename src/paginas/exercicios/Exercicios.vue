@@ -1,66 +1,62 @@
 <template>
   <base-app>  
-  <v-row>
-    <v-col cols="12" sm="12">
-      <v-flex text-center xs12 sm3> 
-        <v-select
-          dense
-          :items="grupos"
-          label="Grupos Musculares"
-          v-model="show_grupo"
-          item-value="id"
-          item-text="descricao"
-          prepend-icon="mdi-filter"
-          clearable
-          clear-icon="mdi-filter-remove"
-        ></v-select>
-      </v-flex>
-      <br>
-      <v-card>
-        <v-container fluid>
-          <v-row>
-            <v-col
-              v-for="exercicio in show_exercicios"
-              v-bind:key="exercicio.id"
-              class="d-flex child-flex"
-              sm="3"
-            >
-              <v-card>
-                <v-img
-                  :src="exercicio.imagem"
-                  aspect-ratio="1"
-                  class="teal lighten-3"
-                >
-                  <template v-slot:placeholder>
-                    <v-row
-                      class="fill-height ma-0"
-                      align="center"
-                      justify="center"
-                    >
-                      <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
-                    </v-row>
-                  </template>                                   
-                </v-img>
+    <v-row>
+      <v-col cols="12" sm="12">
+        <v-flex text-center xs12 sm3> 
+          <v-select
+            dense
+            :items="grupos"
+            label="Grupos Musculares"
+            v-model="show_grupo"
+            item-value="id"
+            item-text="descricao"
+            clearable
+            outlined
+            clear-icon="mdi-filter-remove"
+          ></v-select>
+        </v-flex>
+        <br>
+        <v-card>
+          <v-container fluid>
+            <v-row>
+              <v-col
+                v-for="exercicio in show_exercicios"
+                v-bind:key="exercicio.id"
+                class="d-flex child-flex"
+                sm="3"
+              >
+                <v-card>
+                  <v-img
+                    :src="exercicio.imagem"
+                    aspect-ratio="1"
+                    class="teal lighten-3"
+                  >
+                    <template v-slot:placeholder>
+                      <v-row
+                        class="fill-height ma-0"
+                        align="center"
+                        justify="center"
+                      >
+                        <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
+                      </v-row>
+                    </template>                                   
+                  </v-img>
 
-                <v-card-actions>
+                  <v-card-title> {{exercicio.descricao}} </v-card-title>
 
-                  <v-spacer></v-spacer>
+                  <v-card-actions>
+                    <v-btn :to="'/exercicios/exercicio/'+exercicio.id" class="mx-2" text icon color="orange">
+                      <v-icon color="grey">add</v-icon>
+                    </v-btn>
+                  </v-card-actions>  
 
-                  <span> {{exercicio.descricao}}</span>
-
-                  <v-btn :to="'/exercicios/exercicio/'+exercicio.id" class="mx-2" text icon color="orange">
-                    <v-icon dark>add</v-icon>
-                  </v-btn>
-
-                </v-card-actions>  
-
-              </v-card>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-card>
-    </v-col>
-  </v-row>
+                </v-card>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card>
+      </v-col>
+    </v-row>
   </base-app>
 </template>
 
